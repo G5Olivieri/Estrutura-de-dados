@@ -71,7 +71,6 @@ fila* fila::lastElement(fila* f)
 void fila::push(fila* f)
 {
 	fila* ptr = pusher();
-	ptr->setNext(NULL);
 	if(testEmpty(f))
 	{
 		f->setNext(ptr);
