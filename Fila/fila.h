@@ -5,7 +5,7 @@
 class fila {
 	int value;
 	int size;
-	fila* next
+	fila* next;
 public:
 	fila();
 	void setValue(int);
@@ -14,12 +14,14 @@ public:
 	int getSize();
 	void setNext(fila*);
 	fila* getNext();
-	bool testEmpty(fila*);
+	bool testEmpty(fila* f);
+	fila* lastElement(fila* f);
 	fila* pusher();
-	void push(fila*);
-	void pop(fila*);
-	void free(fila*);
-	void show(fila*);
+	void push(fila* f);
+	void pop(fila* f);
+	void free(fila* f);
+	fila* show(fila* f);
+	void order(fila* f);
 };
 
 #endif /* FILA_H_ */
