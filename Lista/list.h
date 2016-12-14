@@ -1,37 +1,42 @@
-#ifndef _LIST_H_
-#define _LIST_H_
+#ifndef listaA_H
+#define listaA_H
 #include <iostream>
 
-class list
+class lista
 {
-	int value, position, size;
-	list* next, *ant;
+    private:
+        int value;
+        int pos;
+        int Size;
+        lista* next;
+        lista* ant;
 	public:
-		list();
-		void setValue(int n);
-		void setNext(list* l);
-		void setAnt(list* l);
-		void setSize(int n);
-		void setPosition(int n);
+		lista();
+		lista(lista* l);
+		void setValue(int value);
+		void setNext(lista* next);
+		void setAnt(lista* ant);
+		void setSize(int Size);
+		void setPos(int pos);
 		int getValue();
 		int getSize();
-		int getPosition();
-		list* getNext();
-		list* getAnt();
-		bool testEmpty(list* l);
-		list* pusher();
-		void atualiza(list* l);
-		list* lastElement(list* l);
-		void pushFirst(list* l, list* newNode);
-		void pushBegin(list* l);
-		void pushEnd(list* l);
-		void pushPosition(list* l, int p);
-		void popFirst(list* l);
-		void popBegin(list* l);
-		void popEnd(list* l);
-		void popPosition(list* l, int p);
-		list* show(list* l);
-		void free(list* l);
+		int getPos();
+		lista* getNext();
+		lista* getAnt();
+		bool testEmpty(lista* l);
+		lista* pusher();
+		void atualiza(lista* l);
+		lista* lastElement(lista* l);
+		void pushFirst(lista* l, lista* newNode);
+		void pushBegin(lista* l);
+		void pushEnd(lista* l);
+		void pushPosition(lista* l, int p);
+		void popFirst(lista* l);
+		void popBegin(lista* l);
+		void popEnd(lista* l);
+		void popPosition(lista* l, int p);
+		lista* show(lista* l);
+		void free(lista* l);
 };
 
-#endif // _LIST_H_
+#endif // listaA_H
