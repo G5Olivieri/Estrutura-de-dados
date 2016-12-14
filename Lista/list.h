@@ -1,5 +1,5 @@
-#ifndef listaA_H
-#define listaA_H
+#ifndef LISTA_H
+#define LISTA_H
 #include <iostream>
 
 class lista
@@ -39,4 +39,4 @@ class lista
 		void free(lista* l);
 };
 
-#endif // listaA_H
+#endif // LISTA_H
