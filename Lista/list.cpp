@@ -1,71 +1,83 @@
-#include "list.h"
+#include "lista.h"
 
-list::list()
+lista::lista()
 {
-	value = position = size = 0;
-	next = ant = NULL;
+	this->value = 0;
+	this->pos = 0;
+	this->Size = 0;
+	this->next = NULL;
+	this->ant = NULL;
 }
 
-void list::setValue(int n)
+lista::lista(lista* l)
 {
-	this->value = n;
+	this->value = l->getValue();
+	this->pos = l->getPos();
+	this->Size = l->getSize();
+	this->next = l->getNext();
+	this->ant = l->getAnt();
 }
 
-void list::setNext(list* l)
+void lista::setValue(int value)
 {
-	this->next = l;
+	this->value = value;
 }
 
-void list::setAnt(list* l)
+void lista::setNext(lista* next)
 {
-	this->ant = l;
+	this->next = next;
 }
 
-void list::setSize(int n)
+void lista::setAnt(lista* ant)
 {
-	this->size = n;
+	this->ant = ant;
 }
 
-void list::setPosition(int n)
+void lista::setSize(int Size)
 {
-	this->position = n;
+	this->Size = Size;
 }
 
-int list::getValue()
+void lista::setPos(int pos)
+{
+	this->pos = pos;
+}
+
+int lista::getValue()
 {
 	return this->value;
 }
 
-int list::getSize()
+int lista::getSize()
 {
-	return this->size;
+	return this->Size;
 }
 
-int list::getPosition()
+int lista::getPos()
 {
-	return this->position;
+	return this->pos;
 }
 
-list* list::getNext()
+lista* lista::getNext()
 {
 	return this->next;
 }
 
-list* list::getAnt()
+lista* lista::getAnt()
 {
 	return this->ant;
 }
 
-bool list::testEmpty(list* l)
+bool lista::testEmpty(lista* l)
 {
 	if(!l->getNext()) return true;
 	else return false;
 }
 
-list* list::pusher()
+lista* lista::pusher()
 {
 	int v;
-	list* tempNode = new list();
+	lista* tempNode = new lista();
 	if(!tempNode)
 	{
 		std::cout << "Sem memoria: ";
@@ -80,33 +92,35 @@ list* list::pusher()
 	}
 }
 
-void list::atualiza(list* l)
+void lista::atualiza(lista* l)
 {
-	list* tempNode = l->getNext();
+	lista* tempNode = new lista(l->getNext());
 	for(int i = 1; i <= l->getSize(); i++)
 	{
-		tempNode->setPosition(i);
+        tempNode->setPos(i);
 		tempNode = tempNode->getNext();
 	}
+	//std::cout << "geral";
 }
 
-list* list::lastElement(list* l)
+lista* lista::lastElement(lista* l)
 {
 	if(!l->getNext()) return l;
 	else return lastElement(l->getNext());
 }
 
-void list::pushFirst(list* l, list* newNode)
+void lista::pushFirst(lista* l, lista* newNode)
 {
-	newNode->setPosition(1);
+	newNode->setPos(1);
 	newNode->setAnt(l);
+	newNode->setNext(l->getNext());
 	l->setNext(newNode);
 	l->setSize(l->getSize()+1);
 }
 
-void list::pushBegin(list* l)
+void lista::pushBegin(lista* l)
 {
-	list* newNode = pusher();
+	lista* newNode = pusher();
 	if(testEmpty(l))
 		pushFirst(l, newNode);
 	else
@@ -114,19 +128,20 @@ void list::pushBegin(list* l)
 		newNode->setAnt(l);
 		newNode->setNext(l->getNext());
 		l->getNext()->setAnt(newNode);
+		l->setNext(newNode);
 		l->setSize(l->getSize()+1);
 		l->atualiza(l);
 	}
 }
 
-void list::pushEnd(list* l)
+void lista::pushEnd(lista* l)
 {
-	list* newNode = pusher();
+	lista* newNode = pusher();
 	if(testEmpty(l))
 		pushFirst(l, newNode);
 	else
 	{
-		list* lastNode = lastElement(l);
+		lista* lastNode = lastElement(l);
 		lastNode->setNext(newNode);
 		newNode->setAnt(lastNode);
 		l->setSize(l->getSize()+1);
@@ -134,19 +149,19 @@ void list::pushEnd(list* l)
 	}
 }
 
-void list::pushPosition(list* l, int p)
+void lista::pushPosition(lista* l, int p)
 {
-	list* newNode = pusher();
+	lista* newNode = pusher();
 	if(testEmpty(l))
 	{
 		pushFirst(l, newNode);
-		std::cout << "Lista vazia, elemento colocado na primeira posicao: ";
+		std::cout << "listaa vazia, elemento colocado na primeira posicao: ";
 	}
 	else
 	{
-		list* atualNode = l->getNext();
+		lista* atualNode = l->getNext();
 
-		while(atualNode->getPosition() != p)
+		while(atualNode->getPos() != p)
 			atualNode = atualNode->getNext();
 
 		newNode->setNext(atualNode);
@@ -158,7 +173,7 @@ void list::pushPosition(list* l, int p)
 	}
 }
 
-void list::popFirst(list* l)
+void lista::popFirst(lista* l)
 {
 		delete l->getNext();
 		l->setNext(NULL);
@@ -166,9 +181,9 @@ void list::popFirst(list* l)
      	l->atualiza(l);
 }
 
-void list::popBegin(list* l)
+void lista::popBegin(lista* l)
 {
-	list* atualNode = l->getNext();
+	lista* atualNode = l->getNext();
 	if(testEmpty(l))
 		popFirst(l);
 	else
@@ -177,18 +192,18 @@ void list::popBegin(list* l)
                 atualNode->getNext()->setAnt(l);
                 l->setNext(atualNode->getNext());
                 l->setSize(l->getSize()-1);
-		l->atualiza(l);
+                l->atualiza(l);
 		delete atualNode;
 	}
 }
 
-void list::popEnd(list* l)
+void lista::popEnd(lista* l)
 {
 	if(testEmpty(l))
 		popFirst(l);
 	else
 	{
-		list* antLastNode = lastElement(l);
+		lista* antLastNode = lastElement(l);
 		antLastNode = antLastNode->getAnt();
 		delete antLastNode->getNext();
 		antLastNode->setNext(NULL);
@@ -196,14 +211,14 @@ void list::popEnd(list* l)
 	}
 }
 
-void list::popPosition(list* l, int p)
+void lista::popPosition(lista* l, int p)
 {
-	list* atualNode = l->getNext();
+	lista* atualNode = l->getNext();
 	if(testEmpty(l))
 		popFirst(l);
 	else
 	{
-		while(atualNode->getPosition() != p)
+		while(atualNode->getPos() != p)
 			atualNode = atualNode->getNext();
 		atualNode->getAnt()->setNext(atualNode->getNext());
 		atualNode->getNext()->setAnt(atualNode->getAnt());
@@ -213,33 +228,33 @@ void list::popPosition(list* l, int p)
 	}
 }
 
-list* list::show(list* l)
+lista* lista::show(lista* l)
 {
 	if(!l->getNext()) return NULL;
 	else
 	{
-		std::cout << "Element " << l->getNext()->getPosition() << " - Value: "
+		std::cout << "Element " << l->getNext()->getPos() << " - Value: "
 			  << l->getNext()->getValue() << ": ";
 		return show(l->getNext());
 	}
 }
 
-void list::free(list* l)
+void lista::free(lista* l)
 {
 	if(testEmpty(l))
 	{
 		delete l->getNext();
-		std::cout << "Lista vazia: ";
+		std::cout << "lista vazia: ";
 	}
 	else
 	{
-		list* tempNode = lastElement(l);
+		lista* tempNode = lastElement(l);
 		while(tempNode != l)
 		{
 			tempNode = tempNode->getAnt();
 			delete tempNode->getNext();
 		}
 		delete l->getNext();
-		std::cout << "Lista vazia: ";
+		std::cout << "listaa vazia: ";
 	}
 }
