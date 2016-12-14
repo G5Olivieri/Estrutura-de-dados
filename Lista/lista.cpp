@@ -74,7 +74,7 @@ bool lista::testEmpty(lista* l)
 	else return false;
 }
 
-lista* lista::pusher()
+lista* lista::pusher(std::string s)
 {
 	int v;
 	lista* tempNode = new lista();
@@ -85,7 +85,25 @@ lista* lista::pusher()
 	}
 	else
 	{
-		std::cout << "Digite o valor do elemento: ";
+		std::cout << "Digite o valor do " << s << " elemento: ";
+		std::cin >> v;
+		tempNode->setValue(v);
+		return tempNode;
+	}
+}
+
+lista* lista::pusher(int p)
+{
+	int v;
+	lista* tempNode = new lista();
+	if(!tempNode)
+	{
+		std::cout << "Sem memoria: ";
+		return NULL;
+	}
+	else
+	{
+		std::cout << "Digite o valor do " << p << " elemento: ";
 		std::cin >> v;
 		tempNode->setValue(v);
 		return tempNode;
@@ -97,12 +115,9 @@ void lista::atualiza(lista* l)
 	lista* tempNode = new lista(l);
 	for(int i = 0; i <= l->getSize(); i++)
 	{
-        tempNode->setPos(i);
-        std::cout << tempNode->getValue() << " " << tempNode->getPos() << std::endl;
+        	tempNode->setPos(i);
 		tempNode = tempNode->getNext();
 	}
-	std::cout << l->getNext()->getPos() << std::endl;
-
 }
 
 lista* lista::lastElement(lista* l)
@@ -122,7 +137,7 @@ void lista::pushFirst(lista* l, lista* newNode)
 
 void lista::pushBegin(lista* l)
 {
-	lista* newNode = pusher();
+	lista* newNode = pusher("Primeiro");
 	if(testEmpty(l))
 		pushFirst(l, newNode);
 	else
@@ -138,7 +153,7 @@ void lista::pushBegin(lista* l)
 
 void lista::pushEnd(lista* l)
 {
-	lista* newNode = pusher();
+	lista* newNode = pusher("Ultimo");
 	if(testEmpty(l))
 		pushFirst(l, newNode);
 	else
@@ -153,7 +168,7 @@ void lista::pushEnd(lista* l)
 
 void lista::pushPos(lista* l, int p)
 {
-	lista* newNode = pusher();
+	lista* newNode = pusher(p);
 	if(testEmpty(l))
 	{
 		pushFirst(l, newNode);
@@ -177,8 +192,8 @@ void lista::pushPos(lista* l, int p)
 
 void lista::popFirst(lista* l)
 {
-		delete l->getNext();
-		l->setNext(NULL);
+	delete l->getNext();
+	l->setNext(NULL);
         l->setSize(l->getSize()-1);
      	l->atualiza(l);
 }
