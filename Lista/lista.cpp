@@ -137,7 +137,7 @@ void lista::pushFirst(lista* l, lista* newNode)
 
 void lista::pushBegin(lista* l)
 {
-	lista* newNode = pusher("Primeiro");
+	lista* newNode = pusher("primeiro");
 	if(testEmpty(l))
 		pushFirst(l, newNode);
 	else
@@ -153,7 +153,7 @@ void lista::pushBegin(lista* l)
 
 void lista::pushEnd(lista* l)
 {
-	lista* newNode = pusher("Ultimo");
+	lista* newNode = pusher("ultimo");
 	if(testEmpty(l))
 		pushFirst(l, newNode);
 	else
@@ -172,7 +172,7 @@ void lista::pushPos(lista* l, int p)
 	if(testEmpty(l))
 	{
 		pushFirst(l, newNode);
-		std::cout << "listaa vazia, elemento colocado na primeira posicao: ";
+		std::cout << "lista vazia, elemento colocado na primeira posicao: ";
 	}
 	else
 	{
@@ -192,25 +192,25 @@ void lista::pushPos(lista* l, int p)
 
 void lista::popFirst(lista* l)
 {
-	delete l->getNext();
-	l->setNext(NULL);
-        l->setSize(l->getSize()-1);
-     	l->atualiza(l);
+    delete l->getNext();
+    l->setNext(NULL);
+    l->setSize(l->getSize()-1);
+    l->atualiza(l);
 }
 
 void lista::popBegin(lista* l)
 {
-	lista* atualNode = l->getNext();
+	lista* atualNode = new lista(l->getNext());
 	if(testEmpty(l))
 		popFirst(l);
 	else
 	{
-                atualNode = l->getNext();
-                atualNode->getNext()->setAnt(l);
-                l->setNext(atualNode->getNext());
-                l->setSize(l->getSize()-1);
-                l->atualiza(l);
-		delete atualNode;
+        atualNode = l->getNext();
+        atualNode->getNext()->setAnt(l);
+        l->setNext(atualNode->getNext());
+        l->setSize(l->getSize()-1);
+        l->atualiza(l);
+        delete atualNode;
 	}
 }
 
@@ -220,7 +220,7 @@ void lista::popEnd(lista* l)
 		popFirst(l);
 	else
 	{
-		lista* antLastNode = lastElement(l);
+		lista* antLastNode = new lista(lastElement(l));
 		antLastNode = antLastNode->getAnt();
 		delete antLastNode->getNext();
 		antLastNode->setNext(NULL);
@@ -228,7 +228,7 @@ void lista::popEnd(lista* l)
 	}
 }
 
-void lista::popPosition(lista* l, int p)
+void lista::popPos(lista* l, int p)
 {
 	lista* atualNode = l->getNext();
 	if(testEmpty(l))
@@ -272,7 +272,6 @@ void lista::free(lista* l)
 			delete tempNode->getNext();
 		}
 		delete l->getNext();
-		std::cout << "listaa vazia: ";
+		std::cout << "lista vazia: ";
 	}
 }
-
