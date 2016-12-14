@@ -94,13 +94,15 @@ lista* lista::pusher()
 
 void lista::atualiza(lista* l)
 {
-	lista* tempNode = new lista(l->getNext());
-	for(int i = 1; i <= l->getSize(); i++)
+	lista* tempNode = new lista(l);
+	for(int i = 0; i <= l->getSize(); i++)
 	{
         tempNode->setPos(i);
+        std::cout << tempNode->getValue() << " " << tempNode->getPos() << std::endl;
 		tempNode = tempNode->getNext();
 	}
-	//std::cout << "geral";
+	std::cout << l->getNext()->getPos() << std::endl;
+
 }
 
 lista* lista::lastElement(lista* l)
@@ -149,7 +151,7 @@ void lista::pushEnd(lista* l)
 	}
 }
 
-void lista::pushPosition(lista* l, int p)
+void lista::pushPos(lista* l, int p)
 {
 	lista* newNode = pusher();
 	if(testEmpty(l))
@@ -234,7 +236,7 @@ lista* lista::show(lista* l)
 	else
 	{
 		std::cout << "Element " << l->getNext()->getPos() << " - Value: "
-			  << l->getNext()->getValue() << ": ";
+			  << l->getNext()->getValue() << "\n";
 		return show(l->getNext());
 	}
 }
@@ -258,3 +260,4 @@ void lista::free(lista* l)
 		std::cout << "listaa vazia: ";
 	}
 }
+
