@@ -38,9 +38,6 @@ void insere(pno a, int num)
 			else
 				insere(a->direita, num);
 		}
-		
-		//else
-		//	printf("Elemento ja existe");	
 	}
 }
 
