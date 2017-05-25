@@ -18,6 +18,7 @@ void Fila::push(int valor)
         this->getFim()->setProx(new No(valor));
         setFim(this->getFim()->getProx());
     }
+    setTamanho(getTamanho()+1);
 }
 
 int Fila::pop()
@@ -33,6 +34,7 @@ int Fila::pop()
         setInicio(getInicio()->getProx());
         delete temp;
     }
+    setTamanho(getTamanho()-1);
     return valor;
 
 }
