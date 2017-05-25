@@ -56,12 +56,14 @@ public:
     {
         setInicio(NULL);
         setFim(NULL);
+        setTamanho(0);
     }
     Fila(int valor)
     {
         setInicio(NULL);
         setFim(NULL);
         push(valor);
+        setTamanho(1);
     }
 
     void setInicio(No *inicio)
@@ -72,6 +74,16 @@ public:
     void setFim(No *fim)
     {
         this->fim = fim;
+    }
+
+    void setTamanho(int tamanho)
+    {
+        this->tamanho = tamanho;
+    }
+
+    int getTamanho()
+    {
+        return this->tamanho;
     }
 
     No *getInicio()
@@ -91,5 +103,6 @@ public:
 private:
     No *inicio;
     No *fim;
+    int tamanho;
 };
 #endif // FILA_H
